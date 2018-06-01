@@ -4,7 +4,7 @@
 ## Gradle
     dependencies {
        ...
-       implementation 'com.ecnu:viewpagercircle:2.0.0'
+       implementation 'com.ecnu:viewpagercircle:2.1.0'
     }
 ## Usage
 ### xml
