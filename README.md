@@ -21,3 +21,6 @@
 ## Limitation
 * 快速滑动过程中，遇到首尾page时会有卡顿
 * 未实现点击事件
+## ChangeLog
+* 2.0.0 bug修复
+* 1.0.0 initial release
