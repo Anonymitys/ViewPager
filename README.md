@@ -1,5 +1,6 @@
 # ViewPager
-实现了ViewPager的轮播效果，可以自定义轮播过程中每张图片的持续时间
+实现了ViewPager的轮播效果，可以自定义轮播过程中每张图片的持续时间<br><br>
+<img width="360" height="640" src="https://github.com/Anonymitys/ViewPager/raw/master/app/gif_folder/gif.gif" />
 ## Gradle
     dependencies {
        ...
