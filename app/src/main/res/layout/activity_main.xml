@@ -5,6 +5,6 @@
     <ecnu.viewpagercircle.PagerView
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"></ecnu.viewpagercircle.PagerView>
+        android:layout_height="200dp"/>
 
 </LinearLayout>

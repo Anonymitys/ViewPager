@@ -4,15 +4,18 @@ import android.content.Context;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,8 @@ public class PagerView extends RelativeLayout {
     private int currentItem = 0;
     private boolean isLoop=true;
     private int time=3000;
+    private OnClickListener listener;
+    private int mTouchSlop;
 
     android.os.Handler handler=new android.os.Handler(){
         @Override
@@ -38,7 +43,9 @@ public class PagerView extends RelativeLayout {
             }
         }
     };
-
+    public interface OnClickListener{
+         public void OnClick(int position);
+    }
     public PagerView(Context context) {
         super(context);
     }
@@ -46,7 +53,8 @@ public class PagerView extends RelativeLayout {
     public PagerView(Context context, AttributeSet attr) {
         super(context, attr);
         mContext = context;
-
+        ViewConfiguration configuration = ViewConfiguration.get(context);
+        mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
         LayoutInflater.from(context).inflate(R.layout.pager_view, this);
     }
 
@@ -75,7 +83,7 @@ public class PagerView extends RelativeLayout {
 
             @NonNull
             @Override
-            public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            public Object instantiateItem(@NonNull ViewGroup container, final int position) {
                 View view = imageViewList.get(position);
                 container.addView(view);
                 return view;
@@ -124,14 +132,31 @@ public class PagerView extends RelativeLayout {
             }
         });
         viewPager.setOnTouchListener(new OnTouchListener() {
+            int flag=0;
+            float x=0,y=0;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 switch (event.getAction()){
                     case MotionEvent.ACTION_DOWN:
                         isLoop=false;
+                        x=event.getX();
+                        y=event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        float deltaX=Math.abs(event.getX()-x);
+                        if(deltaX<mTouchSlop){
+                            flag=0;
+                        }else {
+                            flag=-1;
+                        }
                         break;
                     case MotionEvent.ACTION_UP:
                         isLoop=true;
+                        if(flag==0){
+                            listener.OnClick(viewPager.getCurrentItem());
+                        }
+                        break;
                 }
                 return false;
             }
@@ -204,5 +229,8 @@ public class PagerView extends RelativeLayout {
     }
     public void setDuration(int time){
         this.time=time;
+    }
+    public void setOnClickListener(OnClickListener listener){
+        this.listener=listener;
     }
 }

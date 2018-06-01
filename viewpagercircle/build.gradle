@@ -36,7 +36,7 @@ publish {
     userOrg = 'anonymitys'
     groupId = 'com.ecnu'
     artifactId = 'viewpagercircle'
-    publishVersion = '2.0.0'
+    publishVersion = '2.1.0'
     desc = 'Oh hi, this is a nice description for a project, right?'
     website = 'https://github.com/novoda/bintray-release'
 }
