@@ -18,10 +18,18 @@
     pagerView=(PagerView)findViewById(R.id.pager);
     pagerView.setDuration(5000);//setDuration()要在setImageView()前面调用
     pagerView.setImageView(imageDrawable);
+    
+    //点击事件
+     pagerView.setOnClickListener(new PagerView.OnClickListener() {
+            @Override
+            public void OnClick(int position) {//position--ViewPager的当前imageView,从1开始
+                Toast.makeText(MainActivity.this,"position"+position,Toast.LENGTH_SHORT).show();
+            }
+        });
 
 ## Limitation
 * 快速滑动过程中，遇到首尾page时会有卡顿
-* 未实现点击事件
 ## ChangeLog
+* 2.1.0 实现了点击事件
 * 2.0.0 bug修复
 * 1.0.0 initial release
